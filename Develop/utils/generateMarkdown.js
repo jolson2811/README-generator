@@ -4,7 +4,8 @@ const fs = require('fs');
 // If there is no license, return an empty string
 function renderLicenseBadge(license) {
   if (license) {
-
+    var ansBad = "\n[![License: "+license+"](https://img.shields.io/badge/License-"+license+"-blue.svg)]";
+    return ansBad;
   } else {
     return "";
   }
@@ -14,7 +15,8 @@ function renderLicenseBadge(license) {
 // If there is no license, return an empty string
 function renderLicenseLink(license) {
   if (license) {
-
+    var ansLink = "(https://opensource.org/licenses/"+license+")";
+    return ansLink;
   } else {
     return "";
   }
@@ -24,7 +26,26 @@ function renderLicenseLink(license) {
 // If there is no license, return an empty string
 function renderLicenseSection(license) {
   if(license){
+    var ans = "";
+    for(var i = 0; i < license.length; i++){
+      ans+= "\n### "+license[i]+" License ("+license[i]+")";
+      ans+=renderLicenseBadge(license[i]);
+      ans+=renderLicenseLink(license[i]);
+    }
+    return ans;
+  }else{
+    return "";
+  }
+}
 
+function renderLicenseTitle(license){
+  if(license){
+    var ans = "";
+    for(var i = 0; i < license.length; i++){
+      ans+=renderLicenseBadge(license[i]);
+      ans+=renderLicenseLink(license[i]);
+    }
+    return ans;
   }else{
     return "";
   }
@@ -52,6 +73,7 @@ const writeFile = fileContent => {
 // TODO: Create a function to generate markdown for README
 function generateMarkdown(data) {
   let mark = `# ${data.title}
+  ${renderLicenseTitle(data.license)}
   ### ${data.description}
   ## Table of Contents:
   * [Installation](#installation)
@@ -68,6 +90,7 @@ function generateMarkdown(data) {
   ${data.usage}
 
   ### License
+  ${renderLicenseSection(data.license)}
 
   ### Contributing
   ${data.guidelines}
@@ -77,8 +100,10 @@ function generateMarkdown(data) {
 
   ### Questions
   gitHub Link: https://github.com/${data.github}
+
+  Email: ${data.email}
 `;
 writeFile(mark);
 }
 
-module.exports = {generateMarkdown, writeFile};
+module.exports = {generateMarkdown};

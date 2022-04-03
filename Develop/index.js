@@ -1,16 +1,6 @@
 // TODO: Include packages needed for this application
 const inquirer = require('inquirer');
-const {generateMarkdown, writeFile} = require('./utils/generateMarkdown.js');
-
-let userInput = {
-    title: "",
-    description: "",
-    instruction: "",
-    usage: "",
-    guideline: "",
-    testInstruction: "",
-    gitHub: ""
-}
+const {generateMarkdown} = require('./utils/generateMarkdown.js');
 
 // TODO: create input function
 function promptUser(){
@@ -24,6 +14,19 @@ function promptUser(){
                     return true;
                 } else {
                     console.log('Please enter your project title!');
+                    return false;
+                }
+            }
+        },
+        {
+            type: 'input',
+            name: 'email',
+            message: 'Enter in your email',
+            validate: githubInput => {
+                if (githubInput) {
+                    return true;
+                } else {
+                    console.log('Please enter your email.');
                     return false;
                 }
             }
@@ -53,6 +56,12 @@ function promptUser(){
                     return false;
                 }
             }
+        },
+        {
+            type: 'checkbox',
+            name: 'license',
+            message: 'What license did you use?',
+            choices: ['MIT','ISC','IBM']
         },
         {
             type: 'input',
@@ -109,13 +118,9 @@ function promptUser(){
     ]);
 }
 
-// TODO: Create a function to write README file
-function writeToFile(fileName, data) {}
-
 // TODO: Create a function to initialize app
 function init() {
     promptUser().then(function(res){
-        console.log("response from questions",res);
         generateMarkdown(res);
     });
 }
