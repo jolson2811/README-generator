@@ -30,9 +30,9 @@ function renderLicenseSection(license) {
   }
 }
 
-const writeFile = (fileContent,title) => {
+const writeFile = fileContent => {
   return new Promise((resolve, reject) => {
-      fs.writeFile('./readmefiles/'+title, fileContent, err => {
+      fs.writeFile('./readmefiles/README.md', fileContent, err => {
           // if there's an error, reject the Promise and send the error to the Promise's `.catch()` method
           if (err) {
               reject(err);
@@ -53,8 +53,32 @@ const writeFile = (fileContent,title) => {
 function generateMarkdown(data) {
   let mark = `# ${data.title}
   ### ${data.description}
+  ## Table of Contents:
+  * [Installation](#installation)
+  * [Usage](#usage)
+  * [License](#license)
+  * [Contributing](#contributing)
+  * [Tests](#tests)
+  * [Questions](#questions)
+   
+  ### Installation
+  ${data.installation}
+
+  ### Usage
+  ${data.usage}
+
+  ### License
+
+  ### Contributing
+  ${data.guidelines}
+
+  ### Tests
+  ${data.testInstructions}
+
+  ### Questions
+  gitHub Link: https://github.com/${data.github}
 `;
-writeFile(mark, data.title);
+writeFile(mark);
 }
 
 module.exports = {generateMarkdown, writeFile};

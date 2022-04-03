@@ -31,12 +31,12 @@ function promptUser(){
         {
             type: 'input',
             name: 'github',
-            message: 'Enter your GitHub link',
+            message: 'Enter your GitHub username',
             validate: githubInput => {
                 if (githubInput) {
                     return true;
                 } else {
-                    console.log('Please enter your GitHub link!');
+                    console.log('Please enter your GitHub username!');
                     return false;
                 }
             }
