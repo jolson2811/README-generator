@@ -13,7 +13,7 @@ function promptUser(){
                 if (nameInput) {
                     return true;
                 } else {
-                    console.log('Please enter your project title!');
+                    console.log('Please enter your project title.');
                     return false;
                 }
             }
@@ -39,7 +39,7 @@ function promptUser(){
                 if (githubInput) {
                     return true;
                 } else {
-                    console.log('Please enter your GitHub username!');
+                    console.log('Please enter your GitHub username.');
                     return false;
                 }
             }
@@ -60,7 +60,7 @@ function promptUser(){
         {
             type: 'checkbox',
             name: 'license',
-            message: 'What license did you use?',
+            message: 'Please select the license(s) that apply.',
             choices: ['MIT','ISC','IBM']
         },
         {
